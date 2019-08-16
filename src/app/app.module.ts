@@ -26,10 +26,12 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { UpdateBatchComponent } from './search/update-batch/update-batch.component';
 import { LogsComponent } from './logs/logs.component';
 
-const appRoutes : Routes = [
-  {path: '', redirectTo: 'search', pathMatch: 'full'},
-  {path: 'search', component: SearchComponent},
-  {path: 'logs', component: LogsComponent}
+const appRoutes: Routes = [
+  {path: 'db2', component: SearchComponent},
+  {path: 'ff', component: SearchComponent},
+  {path: 'ims', component: SearchComponent},
+  {path: 'logs', component: LogsComponent},
+  {path: '**', redirectTo: 'db2'}
 ]
 
 @NgModule({
@@ -52,8 +54,8 @@ const appRoutes : Routes = [
     MatButtonModule,
     MatListModule,
     MatIconModule, 
-    MatButtonToggleModule, 
     MatFormFieldModule,
+    MatButtonToggleModule,
     MatExpansionModule, 
     MatRippleModule,
     MatDialogModule,

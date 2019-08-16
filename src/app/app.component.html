@@ -1,26 +1,26 @@
 <mat-toolbar color='primary'>
   <mat-icon (click)="onToolbarMenuToggle()" id="toolbarMenu">subject</mat-icon>
   <span>Data Refresh Portal</span>
-  <span class="toolbar-spacer"></span>
-  <a></a>
-  <span class="float-right" (click) = 'onSidenavItemClick("Introduction")'>
-  <mat-icon
+  <div class="w-100">
+    <mat-icon
       class="toolbar-icon float-right"
       matBadgePosition="after"
       matBadgeColor="accent"
-    >info</mat-icon>
-  </span>
+      (click)='onSidenavItemClick("Introduction")'>
+      info
+    </mat-icon>
+  </div>
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container">
   <mat-sidenav mode="side" opened class="example-sidenav">
-    <mat-nav-list>
+    <mat-nav-list class="pt-0">
       <!--  <a mat-list-item (click) = 'onSidenavItemClick("Introduction")' [ngClass] = "{'active' : this.serverService.dbType=='Introduction'}" class="mat-list-content"> Introduction </a> -->
-      <a mat-list-item (click)='onSidenavItemClick("DB2")' routerLink="/search"
+      <a mat-list-item (click)='onSidenavItemClick("DB2")' routerLink="/db2"
         [ngClass]="{'active' : this.serverService.dbType=='DB2'}" class="mat-list-content"> DB2 </a>
-      <a mat-list-item (click)='onSidenavItemClick("FF")' routerLink="/search"
+      <a mat-list-item (click)='onSidenavItemClick("FF")' routerLink="/ff"
         [ngClass]="{'active' : this.serverService.dbType=='FF'}" class="mat-list-content"> FF </a>
-      <a mat-list-item (click)='onSidenavItemClick("IMS")' routerLink="/search"
+      <a mat-list-item (click)='onSidenavItemClick("IMS")' routerLink="/ims"
         [ngClass]="{'active' : this.serverService.dbType=='IMS'}" class="mat-list-content"> IMS </a>
       <a mat-list-item (click)='onSidenavItemClick("LOG")' routerLink="/logs"
         [ngClass]="{'active' : this.serverService.dbType=='LOG'}" class="mat-list-content"> LOGS </a>
