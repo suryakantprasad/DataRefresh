@@ -1,0 +1,279 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+        <div class="row">
+            <div class="col-xs-2 col-md-2 col-lg-2">
+                    <input name="search" class="form-control search-style" type="text" placeholder="Search" aria-label="Search" [(ngModel)] = "this.serverService.searchText" (keyup.enter) = "checkEnter()">
+            </div>
+            <div class="col-xs-1 col-md-1 col-lg-1" style="margin-top: 5px;">
+                <div class="btn-group" appDropdown #r="appDropDown">
+                    <button type="button" class="btn btn-primary dropdown-toggle" style="font-size: 13px;width: 145px;">
+                    {{ this.serverService.searchColumn }}
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" [ngClass]="{'show':r.isOpen}">
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "onSearchColumnOptionClick('APP_CODE')">APP_CODE</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "onSearchColumnOptionClick('APP_DESC')">APP_DESC</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "onSearchColumnOptionClick('GRID_NAME')">GRID</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "onSearchColumnOptionClick('DATABASE_NAME')">DATABASE_NAME</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "onSearchColumnOptionClick('TABLE_SPACE')">TABLE_SPACE</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "onSearchColumnOptionClick('TABLE_NAME')">TABLE_NAME</li> 
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-1 col-md-1 col-lg-1" style="margin-top: 5px;">
+                
+            </div>
+            <div class="col-xs-2 col-md-2 col-lg-2" style="margin-top: 5px;text-align: right;">
+                <label class="label" style="margin-right: 5px;"><b>Filter On: </b></label>
+                <label class="label"><i>Prod </i></label>
+                <div class="btn-group" appDropdown #ref6="appDropDown">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style=" width: 68px;">
+                    {{ this.serverService.filterProd }}
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" [ngClass]="{'show':ref6.isOpen}">
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('Include','Prod')">Include</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('Exclude','Prod')">Exclude</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('New','Prod')">New</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('All','Prod')">All</li>
+                    </ul>
+                </div> 
+            </div>
+            <div class="col-xs-2 col-md-2 col-lg-2" style="margin-top: 5px;text-align: center;">
+                <label class="label"><i>ET </i></label>
+                <div class="btn-group" appDropdown #ref7="appDropDown">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style=" width: 68px;">
+                    {{ this.serverService.filterEt }}
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" [ngClass]="{'show':ref7.isOpen}">
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('Include','ET')">Include</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('Exclude','ET')">Exclude</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('New','ET')">New</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('Empty','ET')">Empty</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('All','ET')">All</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-2 col-md-2 col-lg-2" style="margin-top: 5px;">
+                <label class="label"><i>ST </i></label>
+                <div class="btn-group" appDropdown #ref8="appDropDown">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style=" width: 68px;">
+                    {{ this.serverService.filterSt }}
+                    <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" [ngClass]="{'show':ref8.isOpen}">
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('Include','ST')">Include</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('Exclude','ST')">Exclude</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('New','ST')">New</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('Empty','ST')">Empty</li>
+                        <li class="dropdown-item" style="cursor: pointer;" (click) = "filterResultsBy('All','ST')">All</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xs-2 col-md-2 col-lg-2" style="margin-top: 5px;">
+                <button class="btn btn-success" type = "button" style="color: cornsilk; float: right; margin-right: 5px; font-size: 13px;" (click) = "onOpen()">Batch Update</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-lg-12 col-md-12">
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="this.serverService.searchResultDataSource" matSort>
+                  
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef="app_code">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> APP_CODE </th>
+                                    <td mat-cell *matCellDef="let row;" style="width: 8%;text-align: center; font-size: 11px;"> {{row.app_code}} </td>
+                                </ng-container>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef="app_desc">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> APP_DESC </th>
+                                    <td mat-cell *matCellDef="let row" style="width: 8%;text-align: center; font-size: 11px;"> {{row.app_desc}} </td>
+                                </ng-container>     
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='grid'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> GRID </th>
+                                    <td mat-cell *matCellDef="let row" style="width: 8%;word-break: break-all;text-align: center; font-size: 11px;"> {{row.grid}} </td>
+                                </ng-container>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='database_name'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> DATABASE_NAME </th>
+                                    <td mat-cell *matCellDef="let row" style="width: 8%;word-break: break-all;text-align: center; font-size: 11px;"> {{row.database_name}} </td>
+                                </ng-container>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='file_name'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> FILE_NAME </th>
+                                    <td mat-cell *matCellDef="let row" style="width: 8%;word-break: break-all;text-align: center; font-size: 11px;"> {{row.database_name}} </td>
+                                </ng-container>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='table_name'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader"> TABLE_NAME </th>
+                                    <td mat-cell *matCellDef="let row" style="width: 8%;word-break: break-all;text-align: center; font-size: 11px;"> {{row.table_name}} </td>
+                                </ng-container>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='table_space'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> TABLE_SPACE </th>
+                                    <td mat-cell *matCellDef="let row" style="width: 8%;word-break: break-all;text-align: center; font-size: 11px;"> {{row.table_space}} </td>
+                                </ng-container>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='version'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> VERSION </th>
+                                    <td mat-cell *matCellDef="let row; let i = index;" style="width: 8%;">  
+                                        <div class="btn-group" appDropdown #ref11="appDropDown">
+                                            <button #version name = "version-{{i+pageSize*(pageIndex)}}" id = "version-{{i+pageSize*(pageIndex)}}" type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style="margin-left: 100%; font-size: 11px;">
+                                            {{ row.version }}
+                                            <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" [ngClass]="{'show':ref11.isOpen}">
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('1','version', i)">1</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('2','version', i)">2</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('3','version', i)">3</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('4','version', i)">4</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('5','version', i)">5</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('10','version', i)">10</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('20','version', i)">20</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('All','version', i)">All</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='prod'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> COPY FROM PROD </th>
+                                    <td mat-cell *matCellDef="let row; let i = index;" style="width: 8%;"> 
+                                        <div class="btn-group" appDropdown #ref1="appDropDown"> 
+                                            <!-- statusPROD=='Include' -->
+                                            <button #prod name = "prod-{{i+pageSize*(pageIndex)}}" id = "prod-{{i+pageSize*(pageIndex)}}" type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style="margin-left: 25%;width: 92px; font-size: 11px;">
+                                            {{ row.prod }}
+                                            <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" [ngClass]="{'show':ref1.isOpen}">
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Include','prod', i)">Include</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Exclude','prod', i)">Exclude</li>
+                                                <li class="dropdown-item" style="pointer-events: none;" (click) = "onChangeStatusFile('New','prod', i)" disable>New</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div>  
+
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='et'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> ET </th>
+                                    <td mat-cell *matCellDef="let row; let i = index;" style="width: 8%;">  
+                                        <div class="btn-group" appDropdown #ref2="appDropDown">
+                                            <button #et name = "et-{{i+pageSize*(pageIndex)}}" id = "et-{{i+pageSize*(pageIndex)}}"  type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style="margin-left: 60%;width: 92px; font-size: 11px;">
+                                            {{ row.et }}
+                                            <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" [ngClass]="{'show':ref2.isOpen}">
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Include','et', i)">Include</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Exclude','et', i)">Exclude</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Empty','et', i)">Empty</li>
+                                                <li class="dropdown-item" style="pointer-events: none;" (click) = "onChangeStatusFile('New','et', i)" disable>New</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='st'>
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> ST </th>
+                                    <td mat-cell *matCellDef="let row; let i = index;" style="width: 8%;"> 
+                                        <div class="btn-group" appDropdown #ref3="appDropDown">
+                                            <button #st name = "st-{{i+pageSize*(pageIndex)}}" id = "st-{{i+pageSize*(pageIndex)}}"  type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style="margin-left: 60%;width: 92px; font-size: 11px;">
+                                            {{ row.st }}
+                                            <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" [ngClass]="{'show':ref3.isOpen}">
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Include','st', i)">Include</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Exclude','st', i)">Exclude</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Empty','st', i)">Empty</li>
+                                                <li class="dropdown-item" style="pointer-events: none;" (click) = "onChangeStatusFile('New','st', i)" >New</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div>  
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='mask_scope' style="width: 8%;">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> MASK_SCOPE </th>
+                                    <td mat-cell *matCellDef="let row; let i = index;"> 
+                                        <div class="btn-group" appDropdown #ref4="appDropDown">
+                                            <button #mask name = "mask-{{i+pageSize*(pageIndex)}}" id = "mask-{{i+pageSize*(pageIndex)}}"  type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style="margin-left: 60%;width: 50px; font-size: 11px;">
+                                            {{ row.mask_scope }}
+                                            <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" [ngClass]="{'show':ref4.isOpen}">
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Yes','mask', i)">Yes</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('No','mask', i)">No</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div>    
+                        <div class="row">
+                            <div class="col-xs-1 col-md-1 col-lg-1">
+                                <ng-container matColumnDef='subset_scope' style="width: 8%;">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" style="width: 8%;"> SUBSET_SCOPE </th>
+                                    <td mat-cell *matCellDef="let row; let i = index;"> 
+                                        <div class="btn-group" appDropdown #ref5="appDropDown">
+                                            <button #subset name = "subset-{{i+pageSize*(pageIndex)}}" id = "subset-{{i+pageSize*(pageIndex)}}"  type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv" style="margin-left: 60%;width: 50px; font-size: 11px;">
+                                            {{ row.subset_scope }}
+                                            <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" [ngClass]="{'show':ref5.isOpen}">
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('Yes','subset', i)">Yes</li>
+                                                <li class="dropdown-item" style="cursor: pointer;" (click) = "onChangeStatusFile('No','subset', i)">No</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </div>
+                        </div> 
+                        <tr mat-header-row *matHeaderRowDef="this.serverService.displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: this.serverService.displayedColumns;">
+                        </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPaginateChange($event)"></mat-paginator>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>Batch Update</h2>
+
+<mat-dialog-content style="margin-top: 5px;">
+  
+    <div class="row">
+        <div class="col-xs-12 col-lg-12 col-md-12">
+            <div class="row">
+                <div class="col-xs-6 col-lg-6 col-md-6">
+                    <div class="btn-group" appDropdown #ref9="appDropDown">
+                        <button type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv">
+                        {{ columnField }}
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" [ngClass]="{'show':ref9.isOpen}">
+                            <li class="dropdown-item" style="cursor: pointer;" (click) = "selectColumnField('APP_CODE')">APP_CODE</li>
+                            <li class="dropdown-item" style="cursor: pointer;" (click) = "selectColumnField('APP_DESC')">APP_DESC</li>
+                            <li class="dropdown-item" style="cursor: pointer;" (click) = "selectColumnField('DATABASE_NAME')">DATABASE_NAME</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-lg-6 col-md-6">
+                    <div class="btn-group" appDropdown #ref10="appDropDown">
+                        <button type="button" class="btn btn-default dropdown-toggle btn-sm dropdownEnv">
+                        {{ columnFieldValue }}
+                        <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" [ngClass]="{'show':ref10.isOpen}" style="height: 130px; overflow-y: scroll;">
+                            <li class="dropdown-item" style="cursor: pointer;" (click) = "selectColumnFieldValue( item )" *ngFor = "let item of this.serverService.ColumnFieldValues; let i = index"><p style="font-size: 10px;">{{ item }}</p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 5%;">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                    <input type="radio" name="options" id="option1" autocomplete="off" (change) = "onStatusCheck('Exclude')"> <label>Exclude</label>
+                    <input type="radio" name="options" id="option2" autocomplete="off" (change) = "onStatusCheck('Include')" style="margin-left: 5%;"> <label>Include</label>
+                    <input type="radio" name="options" id="option3" autocomplete="off" (change) = "onStatusCheck('Empty')" style="margin-left: 5%;"> <label>Empty</label>
+                </div>
+                <div class="col-xs-6 col-md-6 col-lg-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 5%;">
+        <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="row">
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                    <input type="checkbox" name="envProd" (change) = "onEnvCheck($event, 'PROD')"><label>PROD</label>
+                    <input type="checkbox" name="envProd" (change) = "onEnvCheck($event, 'ST')" style="margin-left: 5%;"><label>ST</label>
+                    <input type="checkbox" name="envProd" (change) = "onEnvCheck($event, 'ET')" style="margin-left: 5%;"><label>ET</label>
+                </div>
+                <div class="col-xs-6 col-md-6 col-lg-6">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+      
+ 
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary"(click)="update()">Update</button>
+</mat-dialog-actions>

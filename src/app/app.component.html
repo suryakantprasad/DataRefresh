@@ -1,0 +1,82 @@
+<mat-toolbar color='primary'>
+  <mat-icon (click)="onToolbarMenuToggle()" id="toolbarMenu">subject</mat-icon>
+  <span>Data Refresh Portal</span>
+  <span class="toolbar-spacer"></span>
+  <a></a>
+  <span class="float-right" (click) = 'onSidenavItemClick("Introduction")'>
+  <mat-icon
+      class="toolbar-icon float-right"
+      matBadgePosition="after"
+      matBadgeColor="accent"
+    >info</mat-icon>
+  </span>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" opened class="example-sidenav">
+    <mat-nav-list>
+      <!--  <a mat-list-item (click) = 'onSidenavItemClick("Introduction")' [ngClass] = "{'active' : this.serverService.dbType=='Introduction'}" class="mat-list-content"> Introduction </a> -->
+      <a mat-list-item (click)='onSidenavItemClick("DB2")' routerLink="/search"
+        [ngClass]="{'active' : this.serverService.dbType=='DB2'}" class="mat-list-content"> DB2 </a>
+      <a mat-list-item (click)='onSidenavItemClick("FF")' routerLink="/search"
+        [ngClass]="{'active' : this.serverService.dbType=='FF'}" class="mat-list-content"> FF </a>
+      <a mat-list-item (click)='onSidenavItemClick("IMS")' routerLink="/search"
+        [ngClass]="{'active' : this.serverService.dbType=='IMS'}" class="mat-list-content"> IMS </a>
+      <a mat-list-item (click)='onSidenavItemClick("LOG")' routerLink="/logs"
+        [ngClass]="{'active' : this.serverService.dbType=='LOG'}" class="mat-list-content"> LOGS </a>
+
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;" *ngIf="showIntro; else printRouter">
+      <label style="margin-left: 45%;"><b><u>DATA REFRESH PORTAL</u></b></label><br /><br /><br />
+      <b>What is a Data Refresh?</b>
+      <p class="intro-p">Data refresh is a process of cleaning up test data in test environments and refreshing with a
+        fresh extract of masked Production data. </p>
+
+      <b>What is the scope of a data refresh?</b>
+      <p class="intro-p">The scope of databases and so called "Flat" files for a data refresh depends on the
+        include-exclude list which is updated by all data owners. </p>
+
+      <b>What is the include-exclude list?</b>
+      <p class="intro-p">The include-exclude list is a list of databases, tables and "Flat" files. Each data owner is
+        required to go through the list and validate the status for their application databases and "Flat" files. Below
+        is an overview of the database and "Flat" file statuses and what it means<br />
+        Include - Data will be copied from Production, masked (if required) and refreshed in test environment<br />
+        Exclude – Data will not be refreshed in test environment. Existing data will remain<br />
+        Empty – Data in database, table or "Flat" file will be cleaned up during data refresh process<br />
+        New – New database, table, file. Update from Data owner required for status.
+      </p>
+
+      <b>What do each column in the list represent?</b>
+      <p class="intro-p">Application Name – Name of the application.<br />
+        <b>Application Code</b> – 2 Letter code for the application.<br />
+        <b>Database Name</b> – This represents the database name.<br />
+        <b>Table Space Name</b> – Only applicable for DB2. Represents the DB2 table space name<br />
+        <b>Table Name</b> – For DB2, this column represents the table name. <br />
+        <b>Version</b> – Only for Files. This specifies the number of versions of the file that needs to be copied.<br />
+        Copy from Prod – Indicator to specify whether data needs to be copied from production for the data object.
+        Values are: Include – Will be copied from production; Exclude – Do not copy from production; New – New data
+        source. Need input from data owner on status update.<br />
+        ET – Indicator to specify action for refreshing ET environment. Values are: Include – ET will be refreshed with
+        masked production extract; Exclude – ET will not be refreshed; New – New data source. Need input from data owner
+        on status update; Empty – ET data will be cleaned.<br />
+        ST – Indicator to specify action for refreshing ST environment. Values are: Include – ST will be refreshed with
+        ET extract; Exclude – ST will not be refreshed; New – New data source. Need input from data owner on status
+        update; Empty – ST data will be cleaned.<br />
+        Subset – Indicates whether data source is in scope for data sub-setting. Applicable for ST refresh.<br />
+        Mask – Indicates whether data source is in scope for data masking.<br />
+      </p>
+
+      <b>What if a database or "Flat" file is not available in the list or there is any change required for existing
+        data values?</b>
+      <p class="intro-p">Kindly drop a mail to test data management team (test.data.management@nl.abnamro.com) with
+        subject line “Data Refresh – Include Exclude List” and provide the details. </p>
+
+    </div>
+    <ng-template #printRouter>
+      <router-outlet></router-outlet>
+    </ng-template>
+  </mat-sidenav-content>
+</mat-sidenav-container>

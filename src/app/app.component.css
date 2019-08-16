@@ -1,0 +1,43 @@
+.bg-custom{
+    background-color: rgb(108, 245, 66);
+}
+
+.example-container {
+    position: absolute;
+    top: 60px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+  }
+  
+.example-sidenav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+}
+
+.active{
+  background-color: #051b5e !important;
+  color: white !important;
+}
+
+.intro-p{
+  font-size: 12px;
+}
+
+.mat-list-content{
+  font-size: 15px;
+}
+
+mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+toolbar-spacer{
+  flex: 1 1 auto;
+}

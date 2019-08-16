@@ -1,0 +1,86 @@
+.search-style{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.tableHeader{
+    
+    max-width: 8%;
+    text-align: center;
+    width: 8%;
+}
+
+.tableContent{
+    
+    
+    
+    max-width: 8%;
+    text-align: center;
+    word-break: break-all;
+    width: 8%;
+}
+
+.dropdownEnv{
+    border: 1px solid #000;
+    font-size: 12px;
+    margin-top: 5%;
+}
+
+table {
+    margin-top: 1%;
+    width: 100%;
+}
+
+.hideShow{
+    display: None;
+}
+
+.db2Prod{
+    margin-left: 35px;
+}
+
+.db2ET{
+    margin-left: -45px;
+}
+
+.ffProd{
+    margin-left: 55px;
+}
+
+.ffET{
+    margin-left: -30px;
+}
+
+.imsProd{
+    margin-left: 110px;
+}
+
+.imsET{
+    margin-left:-30px;
+}
+
+.statusGreen{
+    background-color: green;
+    color: white;
+}
+
+.statusRed{
+    background-color: red;
+    color: white;
+}
+
+.statusYellow{
+    background-color: yellow;
+    color: white;
+}
+
+.swal-css{
+    height: 150px !important;
+    width: 150px !important;
+}
+
+.label{
+     font-size: 13px; 
+     margin-right: 5px;  
+}
